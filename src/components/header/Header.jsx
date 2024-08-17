@@ -1,25 +1,36 @@
 import { useState } from "react";
-import { CardMedia } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
-import { Divider, ListItemIcon } from "@mui/material";
-import { PersonAdd, Settings, Logout } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-// New dropdown  menu
-import MenuButton from "@mui/joy/MenuButton";
-import JoyMenu from "@mui/joy/Menu";
-import JoyMenuItem from "@mui/joy/MenuItem";
-import Apps from "@mui/icons-material/Apps";
-import Dropdown from "@mui/joy/Dropdown";
+import {
+  Apps,
+  Logout,
+  Settings,
+  PersonAdd,
+  ArrowDropUp,
+  ArrowDropDown,
+} from "@mui/icons-material";
+import {
+  Box,
+  Menu,
+  AppBar,
+  Avatar,
+  Button,
+  Toolbar,
+  Tooltip,
+  Divider,
+  MenuItem,
+  CardMedia,
+  Container,
+  Typography,
+  IconButton,
+  ListItemIcon,
+} from "@mui/material";
+
+import {
+  Dropdown,
+  MenuButton,
+  Menu as JoyMenu,
+  MenuItem as JoyMenuItem,
+} from "@mui/joy";
 
 import "./Header.styles.css";
 import { CitizenshipMenuNavigations } from "./Header.constants";
@@ -89,7 +100,9 @@ const Header = () => {
             }}
           >
             <Dropdown>
-              <MenuButton startDecorator={<Apps />}>Քաղաքացիություն</MenuButton>
+              <MenuButton endDecorator={<ArrowDropDown />}>
+                Քաղաքացիություն
+              </MenuButton>
               <JoyMenu className="dropdown-menu">
                 <JoyMenuItem
                   {...(selectedIndex === 0 && selectedSettings)}
@@ -118,7 +131,7 @@ const Header = () => {
               </JoyMenu>
             </Dropdown>
             <Dropdown>
-              <MenuButton startDecorator={<Apps />}>Ապաստան</MenuButton>
+              <MenuButton endDecorator={<ArrowDropDown />}>Ապաստան</MenuButton>
               <JoyMenu className="dropdown-menu">
                 <JoyMenuItem
                   {...(selectedIndex === 4 && selectedSettings)}
@@ -147,7 +160,9 @@ const Header = () => {
               </JoyMenu>
             </Dropdown>
             <Dropdown>
-              <MenuButton startDecorator={<Apps />}>Կացություն</MenuButton>
+              <MenuButton endDecorator={<ArrowDropDown />}>
+                Կացություն
+              </MenuButton>
               <JoyMenu className="dropdown-menu">
                 <JoyMenuItem
                   {...(selectedIndex === 8 && selectedSettings)}
@@ -176,7 +191,9 @@ const Header = () => {
               </JoyMenu>
             </Dropdown>
             <Dropdown>
-              <MenuButton startDecorator={<Apps />}>Սահմանահատում</MenuButton>
+              <MenuButton endDecorator={<ArrowDropDown />}>
+                Սահմանահատում
+              </MenuButton>
               <JoyMenu className="dropdown-menu">
                 <JoyMenuItem
                   {...(selectedIndex === 12 && selectedSettings)}
@@ -205,7 +222,7 @@ const Header = () => {
               <Link to="/statistics/profile">Պրոֆիլ</Link>
             </Button>
             <Dropdown>
-              <MenuButton startDecorator={<Apps />}>
+              <MenuButton endDecorator={<ArrowDropDown />}>
                 Հաշվետվություններ
               </MenuButton>
               <JoyMenu className="dropdown-menu">

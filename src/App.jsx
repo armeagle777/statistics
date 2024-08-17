@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home.page";
 import NotFound from "./pages/NotFound.page";
-import Pdf from "./pages/Pdf.page";
 import Statistics from "./pages/Statistics";
 import { WorkPermitStats } from "./pages/WorkPermitStats";
 import { WpOfficial } from "./pages/WpOfficial";
@@ -26,7 +25,6 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout />}>
-        {/* <Route path="pdf" element={<Pdf />} /> */}
         <Route index element={<Home />} />
         <Route path="statistics" element={<Statistics />}>
           <Route path="work-permit" element={<WorkPermitStats />} />
