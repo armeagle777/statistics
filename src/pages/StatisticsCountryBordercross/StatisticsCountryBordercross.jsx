@@ -11,6 +11,7 @@ import {
   MOCK_YEARS,
   STATISTICS_TYPE_MAPS,
 } from "../../utils/constants";
+import { addTotals } from "../../utils/helperFunctions";
 
 const StatisticsCountryBordercross = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
@@ -38,7 +39,7 @@ const StatisticsCountryBordercross = () => {
     ...filters,
     statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_COUNTRIES,
   };
-
+  const dataWithTotals = addTotals(data);
   return (
     <Flex vertical>
       {fakeLoading ? (
@@ -58,7 +59,7 @@ const StatisticsCountryBordercross = () => {
       <DataTable
         filters={exportExcelFilters}
         isLoading={isFetching}
-        modifiedData={data}
+        modifiedData={dataWithTotals}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

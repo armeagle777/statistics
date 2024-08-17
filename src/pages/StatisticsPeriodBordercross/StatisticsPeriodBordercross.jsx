@@ -11,6 +11,7 @@ import {
   MOCK_MONTHS,
   STATISTICS_TYPE_MAPS,
 } from "../../utils/constants";
+import { addTotals } from "../../utils/helperFunctions";
 
 const StatisticsPeriodBordercross = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
@@ -38,7 +39,7 @@ const StatisticsPeriodBordercross = () => {
     ...filters,
     statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_PERIOD,
   };
-
+  const dataWithTotals = addTotals(data);
   return (
     <Flex vertical>
       {fakeLoading ? (
@@ -58,7 +59,7 @@ const StatisticsPeriodBordercross = () => {
       <DataTable
         filters={exportExcelFilters}
         isLoading={isFetching}
-        modifiedData={data}
+        modifiedData={dataWithTotals}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>
