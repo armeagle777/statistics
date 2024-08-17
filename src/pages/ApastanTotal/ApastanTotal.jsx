@@ -8,18 +8,19 @@ import useFilterStatistics from "../../hooks/useFilterStatistics";
 import {
   MOCK_MONTHS,
   MOCK_PERIODS,
-  MOCK_YEARS,
   STATISTICS_TYPE_MAPS,
 } from "../../utils/constants";
+import useStatisticsPeriodsData from "../../hooks/useStatisticsPeriodsData";
+import { addTotals } from "../../utils/helperFunctions";
 
 const ApastanTotal = () => {
-  const [fakeLoading, setFakeLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setFakeLoading(false);
-    }, 2000);
-  }, []);
+  const {
+    data: years,
+    isLoading: isYearsLoading,
+    isFetching: isYearsFetching,
+    isError: isYearsError,
+    error: yearsError,
+  } = useStatisticsPeriodsData({ statisticsType: "ASYLUM" });
 
   const {
     data,
@@ -39,14 +40,16 @@ const ApastanTotal = () => {
     statisticsType: STATISTICS_TYPE_MAPS.ASYLUM_TOTAL,
   };
 
+  const dataWithTotals = addTotals(data);
+
   return (
     <Flex vertical>
-      {fakeLoading ? (
+      {isYearsFetching ? (
         <FiltersRowSkeleton />
       ) : (
         <FilterRow
           filters={filters}
-          years={MOCK_YEARS}
+          years={years}
           periods={MOCK_PERIODS}
           months={MOCK_MONTHS}
           onFilter={handleFilter}
@@ -58,7 +61,7 @@ const ApastanTotal = () => {
       <DataTable
         filters={exportExcelFilters}
         isLoading={isFetching}
-        modifiedData={data}
+        modifiedData={dataWithTotals}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

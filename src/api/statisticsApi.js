@@ -30,3 +30,10 @@ export const getStatisticsFile = async (filters, fileType) => {
 
   return blob;
 };
+
+export const getStatisticsPeriodsData = async (statisticsType) => {
+  const response = await statisticsApi.get(
+    `/statistics/periods/${statisticsType}`
+  );
+  return response.data;
+};
