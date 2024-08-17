@@ -7,16 +7,16 @@ import { FilterSelect } from "../../../statisticsComponents";
 import {
   MOCK_CLAIM_TYPES,
   MOCK_REPORT_TYPES,
+  WP_DEC_TYPES,
 } from "../WorkPermitStats.constants";
 import {
   ANT_BTN_TYPES,
   MOCK_PERIODS,
-  MOCK_YEARS,
   STATISTICS_FILTERS,
 } from "../../../utils/constants";
 
-// month
 const FilterRow = ({
+  years,
   filters,
   onFilter,
   isDataLoading,
@@ -38,8 +38,21 @@ const FilterRow = ({
           })
         }
       />
+      {filters.report_type === 2 && (
+        <FilterSelect
+          options={WP_DEC_TYPES}
+          onChange={(e) =>
+            onFilterChange({
+              name: STATISTICS_FILTERS.DECISION_TYPE,
+              value: e,
+            })
+          }
+          value={filters.decType}
+          placeholder={FILTER_ROW.MULTY_DECTYPES_PLACEHOLDER}
+        />
+      )}
       <FilterSelect
-        options={MOCK_YEARS}
+        options={years}
         onChange={(e) =>
           onFilterChange({
             name: STATISTICS_FILTERS.YEAR,
