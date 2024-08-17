@@ -1,0 +1,17 @@
+.base-Menu-root {
+  background-color: red;
+}
+
+.MuiMenuButton-root {
+  background: transparent !important;
+  height: 50%;
+  outline: none !important;
+  border: none !important;
+  color: inherit !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.02857em !important;
+  text-transform: uppercase;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}

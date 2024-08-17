@@ -1,6 +1,4 @@
 import { useState } from "react";
-import AdbIcon from "@mui/icons-material/Adb";
-import MenuIcon from "@mui/icons-material/Menu";
 import { CardMedia } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -15,25 +13,43 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { Divider, ListItemIcon } from "@mui/material";
 import { PersonAdd, Settings, Logout } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+// New dropdown  menu
+import MenuButton from "@mui/joy/MenuButton";
+import JoyMenu from "@mui/joy/Menu";
+import JoyMenuItem from "@mui/joy/MenuItem";
+import Apps from "@mui/icons-material/Apps";
+import Dropdown from "@mui/joy/Dropdown";
+
+import "./Header.styles.css";
+import { CitizenshipMenuNavigations } from "./Header.constants";
 
 const settings = ["Profile", "Users", "Logout"];
 
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(1);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const open = Boolean(anchorElUser);
+
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const createHandleClose = (index) => () => {
+    if (typeof index === "number") {
+      setSelectedIndex(index);
+      navigate(CitizenshipMenuNavigations[index]);
+    }
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const selectedSettings = {
+    selected: true,
+    variant: "soft",
   };
 
   return (
@@ -69,34 +85,163 @@ const Header = () => {
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "flex" },
+              alignItems: "center",
             }}
           >
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              <Link to="bpr">ԲՊՌ</Link>
+            <Dropdown>
+              <MenuButton startDecorator={<Apps />}>Քաղաքացիություն</MenuButton>
+              <JoyMenu className="dropdown-menu">
+                <JoyMenuItem
+                  {...(selectedIndex === 0 && selectedSettings)}
+                  onClick={createHandleClose(0)}
+                >
+                  Ընդհանուր
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 1 && selectedSettings)}
+                  onClick={createHandleClose(1)}
+                >
+                  Շնորհում
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 2 && selectedSettings)}
+                  onClick={createHandleClose(2)}
+                >
+                  Դադարեցում
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 3 && selectedSettings)}
+                  onClick={createHandleClose(3)}
+                >
+                  Ճանաչում
+                </JoyMenuItem>
+              </JoyMenu>
+            </Dropdown>
+            <Dropdown>
+              <MenuButton startDecorator={<Apps />}>Ապաստան</MenuButton>
+              <JoyMenu className="dropdown-menu">
+                <JoyMenuItem
+                  {...(selectedIndex === 4 && selectedSettings)}
+                  onClick={createHandleClose(4)}
+                >
+                  Ընդհանուր
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 5 && selectedSettings)}
+                  onClick={createHandleClose(5)}
+                >
+                  Դիմումներ
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 6 && selectedSettings)}
+                  onClick={createHandleClose(6)}
+                >
+                  Որոշումներ
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 7 && selectedSettings)}
+                  onClick={createHandleClose(7)}
+                >
+                  Ըստ Տարիների
+                </JoyMenuItem>
+              </JoyMenu>
+            </Dropdown>
+            <Dropdown>
+              <MenuButton startDecorator={<Apps />}>Կացություն</MenuButton>
+              <JoyMenu className="dropdown-menu">
+                <JoyMenuItem
+                  {...(selectedIndex === 8 && selectedSettings)}
+                  onClick={createHandleClose(8)}
+                >
+                  ԺԿԿ
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 9 && selectedSettings)}
+                  onClick={createHandleClose(9)}
+                >
+                  ՄԿԿ
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 10 && selectedSettings)}
+                  onClick={createHandleClose(10)}
+                >
+                  ՀԿԿ
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 11 && selectedSettings)}
+                  onClick={createHandleClose(11)}
+                >
+                  WP
+                </JoyMenuItem>
+              </JoyMenu>
+            </Dropdown>
+            <Dropdown>
+              <MenuButton startDecorator={<Apps />}>Սահմանահատում</MenuButton>
+              <JoyMenu className="dropdown-menu">
+                <JoyMenuItem
+                  {...(selectedIndex === 12 && selectedSettings)}
+                  onClick={createHandleClose(12)}
+                >
+                  Ընդհանուր
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 13 && selectedSettings)}
+                  onClick={createHandleClose(13)}
+                >
+                  Ըստ Երկրների
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 14 && selectedSettings)}
+                  onClick={createHandleClose(14)}
+                >
+                  Ըստ Ժամանակահատվածի
+                </JoyMenuItem>
+              </JoyMenu>
+            </Dropdown>
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
+              <Link to="/statistics/deals">Գործարքներ</Link>
             </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              <Link to="workpermit">Աշխ․ Թույլտվություն</Link>
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
+              <Link to="/statistics/profile">Պրոֆիլ</Link>
             </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              <Link to="register">Պետ․Ռեգիստր</Link>
-            </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              <Link to="statistics">Վիճակագրություն</Link>
-            </Button>
+            <Dropdown>
+              <MenuButton startDecorator={<Apps />}>
+                Հաշվետվություններ
+              </MenuButton>
+              <JoyMenu className="dropdown-menu">
+                <JoyMenuItem
+                  {...(selectedIndex === 15 && selectedSettings)}
+                  onClick={createHandleClose(15)}
+                >
+                  Ընդհանուր
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 16 && selectedSettings)}
+                  onClick={createHandleClose(16)}
+                >
+                  Ապաստան
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 17 && selectedSettings)}
+                  onClick={createHandleClose(17)}
+                >
+                  Քաղաքացիություն
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 18 && selectedSettings)}
+                  onClick={createHandleClose(18)}
+                >
+                  Կացություն
+                </JoyMenuItem>
+                <JoyMenuItem
+                  {...(selectedIndex === 19 && selectedSettings)}
+                  onClick={createHandleClose(19)}
+                >
+                  Սահմանահատում
+                </JoyMenuItem>
+              </JoyMenu>
+            </Dropdown>
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Account settings">
               <IconButton
@@ -175,39 +320,6 @@ const Header = () => {
                 Logout
               </MenuItem>
             </Menu>
-            {/* <Tooltip title='Open settings'>
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{ p: 0 }}
-                            >
-                                <Avatar
-                                    alt='Remy Sharp'
-                                    src='https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg'
-                                />
-                            </IconButton>
-                        </Tooltip> */}
-            {/* <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
           </Box>
         </Toolbar>
       </Container>
