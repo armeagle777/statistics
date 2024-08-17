@@ -8,19 +8,19 @@ import useFilterStatistics from "../../hooks/useFilterStatistics";
 import {
   MOCK_MONTHS,
   MOCK_PERIODS,
-  MOCK_YEARS,
   STATISTICS_TYPE_MAPS,
 } from "../../utils/constants";
+import useStatisticsPeriodsData from "../../hooks/useStatisticsPeriodsData";
 import { addTotals } from "../../utils/helperFunctions";
 
 const StatisticsTotalBordercross = () => {
-  const [fakeLoading, setFakeLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setFakeLoading(false);
-    }, 2000);
-  }, []);
+  const {
+    data: years,
+    isLoading: isYearsLoading,
+    isFetching: isYearsFetching,
+    isError: isYearsError,
+    error: yearsError,
+  } = useStatisticsPeriodsData({ statisticsType: "BORDERCROSS" });
 
   const {
     data,
@@ -34,21 +34,20 @@ const StatisticsTotalBordercross = () => {
     handleFilterChange,
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "BORDERCROSS_TOTAL" });
+
   const exportExcelFilters = {
     ...filters,
     statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_TOTAL,
   };
-
   const dataWithTotals = addTotals(data);
-
   return (
     <Flex vertical>
-      {fakeLoading ? (
+      {isYearsFetching ? (
         <FiltersRowSkeleton />
       ) : (
         <FilterRow
           filters={filters}
-          years={MOCK_YEARS}
+          years={years}
           types={BORDERCROSS_TYPES}
           periods={MOCK_PERIODS}
           months={MOCK_MONTHS}
